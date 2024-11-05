@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		#background{
+			background-color:skyblue;
+			position: absolute;
+			width: 100%;
+			height:100%;
+			top:0px;
+		}
+
+		#dog{
+			background-position: center;
+			background-size:cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			width:500px;
+			height:500px;
+			background-image:url(https://img.freepik.com/premium-photo/this-is-cute-mini-dog-size-thumb-with-blurry-generative-ai_791316-4651.jpg);
+		}
+	</style>
+</head>
+
+<body>
+<div id = "background">
+	<h1>
+		<p style="font-size: 50px; color: white; text-align: center;"> dogs for addie </p>
+	</h1>
+
+	<div id = "dog"></div>
+	<div id = "snake"></div>
+</div>
+
+<script type="text/javascript">
+
+	let counter = 0;
+	dog.addEventListener("click", function(){
+		counter=counter+1;
+		console.log(counter)
+
+		if (counter==1){
+		dog.style.backgroundImage = "url(https://i.redd.it/lzy5levymwh51.jpg)"
+		}
+
+		if (counter==2){
+		dog.style.backgroundImage = "url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAQxJdsmUETb1p7dyOyNjwu9UFJuwiT0oWYw&s)"
+		}
+		if (counter==3){
+		dog.style.backgroundImage = "url(https://d2zp5xs5cp8zlg.cloudfront.net/image-73073-800.jpg)"
+		}
+		if (counter==4){
+		dog.style.backgroundImage = "url(https://www.sheknows.com/wp-content/uploads/2023/06/cute-small-dog-breeds.jpg)"
+		}
+		if (counter==5){
+		dog.style.backgroundImage = "url(https://img.freepik.com/premium-photo/scary-realistic-snake-showing-fangs_1000281-4338.jpg?w=360)"
+		}
+	})
+
+</script>
+
+</body>
+
+</html>
