@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		
+		#ball{
+			width:100px;
+			height:100px;
+			background-color:lavenderblush;
+			border-radius:50%;
+			position: absolute;
+			transition-duration: 0.5s;
+		}
+		#ball2{
+			width:100px;
+			height:100px;
+			background-color:lightblue;
+			border-radius:50%;
+			position: absolute;
+			transition-duration: 0.5s;
+		}
+		#ball3{
+			width:100px;
+			height:100px;
+			background-color:lavender;
+			border-radius:50%;
+			position: absolute;
+			transition-duration: 0.5s;
+		}
+		#ball4{
+			width:100px;
+			height:100px;
+			background-color:pink;
+			border-radius:50%;
+			position: absolute;
+			transition-duration: 0.5s;
+		}
+	</style>
+	 
+</head>
+<body>
+	<div id = "ball"></div>
+	<div id = "ball2"></div>
+	<div id = "ball3"></div>
+	<div id = "ball4"></div>
+
+	<script type="text/javascript">
+
+		function move(){
+			let x = Math.random()*1000
+			let y = Math.random()*1000
+
+			let a = Math.random()*1000
+			let b = Math.random()*1000 
+
+			let c = Math.random()*1000
+			let d = Math.random()*1000
+
+			let e = Math.random()*1000
+			let f = Math.random()*1000
+
+			console.log(x)
+			console.log(y)
+
+			ball.style.left = x+"px"
+			ball.style.top = y+"px"
+
+			ball2.style.left = a+"px"
+			ball2.style.top = b+"px"
+
+			ball3.style.left = c+"px"
+			ball3.style.top = d+"px"
+
+			ball4.style.left = e+"px"
+			ball4.style.top = f+"px"
+		}
+
+		setInterval(move, 500)
+
+	</script>
+</body>
+</html>
