@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<style type="text/css">
+
+		#background{
+			width:100%;
+			height:100%;
+			background-color: lightgoldenrodyellow;
+			position: absolute;
+		}
+
+		#picture{
+			width: 500px;
+			height: 500px;
+			background-color: white;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+	</style>
+</head>
+<body>
+	<div id = "background">
+	<center>
+
+		<h1>PICTURES OF ASTRID 🍋</h1>
+		<div id = "picture"></div>
+
+	</center>
+	</div>
+	<script type="text/javascript">
+		
+		let astridpics = ["url(astrid1.JPG)", "url(astrid2.JPG)", "url(astrid3.JPG)", "url(astrid4.png)", "url(astrid5.png)", "url(astrid6.png)", "url(astrid7.png)", "url(astrid8.JPG)", "url(astrid9.JPG)", "url(astrid10.png)"]
+
+		picture.addEventListener("click", function(){
+
+			let randomNumber = Math.round(Math.random()*10)
+
+			picture.style.backgroundImage=astridpics[randomNumber]
+
+		})
+
+	</script>
+
+</body>
+</html>

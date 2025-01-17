@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		#circle{
+			width:500px;
+			height:500px;
+			border-radius: 50%;
+			background-color: lightpink;
+			display: inline-block;
+		}
+
+		#circle2{
+			width:500px;
+			height:500px;
+			border-radius: 50%;
+			background-color: lightgreen;
+			display: inline-block;
+		}
+
+	</style>
+	
+</head>
+<body>
+	<div id = "circle"></div>
+	<div id = "circle2"></div>
+	<audio></audio>
+
+	<script type="text/javascript">
+
+		//g
+
+		circle.addEventListener('mouseenter', function(){
+			gaudio.play();
+		})
+
+		circle.addEventListener('mouseout', function(){
+			gaudio.pause();
+		})
+
+		//e
+
+		circle2.addEventListener('mouseenter', function(){
+			eaudio.play();
+		})
+
+		circle2.addEventListener('mouseout', function(){
+			eaudio.pause();
+		})
+
+	</script>
+
+</body>
+</html>
