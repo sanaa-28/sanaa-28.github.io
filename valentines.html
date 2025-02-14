@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<style type="text/css">
+		body{
+			margin: 0px;
+		}
+
+		
+		.confetti{
+			height: 50px;
+			width: 20px;
+			background-color:#e9e1ed;
+			position: absolute;
+			display: inline-block;
+			
+		}
+		#background{
+			width:100%;
+			height:1000px;
+			background-color: lightpink;
+			position: absolute;
+			top:0px;
+			
+		}
+
+		#heart{
+			
+			width: 500px;
+			height:500px;
+			background-image: url(pink-heart.png);
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			
+		}
+
+		p{font-size: 90px; 
+			color: white; 
+			text-align: center;}
+
+		.text{
+			position:relative;
+			top:100%;
+			width:100%;
+			color: white;
+			
+	</style>
+</head>
+
+<body>
+	<center>
+	<div id="background">
+
+		<p> happy valentine's day house 🏠🥰💝😍 </p> 
+
+	<div id="heart">
+		
+		<div class="text">click me 😛</div>
+	</div>
+
+		</div>
+	</center>
+
+
+		<script type="text/javascript">
+
+			function makeConfetti(){
+				let sprinkle = document.createElement("div")
+				document.body.appendChild(sprinkle)
+				sprinkle.classList.add("confetti")
+
+				let R = 150 + Math.floor(Math.random() * 256);
+	 		 	let G = 100+ Math.floor(Math.random() * 10);
+	  			let B = 150+ Math.floor(Math.random() * 10);
+
+	  			sprinkle.style.backgroundColor= "rgb("+R+", "+G+","+B+")"
+
+				sprinkle.style.height=Math.random()*15 + "px"
+				sprinkle.style.width=Math.random()*10 + "px"
+				sprinkle.style.top=Math.random()*10 + "px"
+				sprinkle.style.left=Math.random()*10000 + "px"
+
+				function fall(){
+					sprinkle.style.top=parseInt(sprinkle.style.top) + (Math.random()*100) + "px"	
+				}
+				setInterval(fall,100)
+			}
+			for(let i = 0; i<10000; i= i+1){
+				makeConfetti(i)
+			}
+
+			let housepics = ["url(house1.png)","url(house2.png)","url(house3.png)","url(house4.png)","url(house5.png)","url(house6.png)","url(house7.png)","url(house8.png)","url(house9.png)","url(house10.png)","url(house11.png)","url(house12.png)","url(house13.png)","url(house14.png)","url(house15.png)","url(house16.png)","url(house17.png)","url(house18.png)","url(house19.png)","url(house20.png)","url(house21.png)","url(house22.png)","url(house23.png)","url(house24.png)","url(house25.png)", "url(house26.png)", "url(house27.png)", "url(house28.png)"]
+
+			let counter = 0
+			heart.addEventListener("click", function(){
+ 
+
+			counter = counter + 1
+
+			heart.style.backgroundImage=housepics[counter]
+
+		})
+
+
+		</script>
+
+</body>
+</html>
