@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>sanaa's trivia game ‼️</title>
+	<style type="text/css">
+		body {
+			margin: 0;
+		}
+
+		#background{
+			width:100%;
+			height:100vh;
+			background-color:#d7bddb;
+			position: fixed;
+			margin: 0px;
+		}
+		#question {
+			font-size: 25px;
+			color: #735078;
+			text-align: center;
+			margin: 20px;
+			padding: 20px;
+			font-weight: bold;
+		}
+		#box0{
+			width: 500px;
+			height: 100px;
+			display:inline-block;
+			background-color:#e38daf;
+			left:185px;
+			top:400px;
+			position: fixed;
+			cursor: pointer;
+			border: 4px solid #b3708b;
+			text-align: center;
+			line-height: 100px;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		#box0:hover{
+			scale: 1.05;
+		}
+		
+		#box1{
+			width: 500px;
+			height: 100px;
+			display:inline-block;
+			background-color:#f5e9ae;
+			left:715px;
+			top:400px;
+			position: fixed;
+			cursor: pointer;
+			border: 4px solid #d1c279;
+			text-align: center;
+			line-height: 100px;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		#box1:hover{
+			scale: 1.05;
+		}
+
+		#box2{
+			width: 500px;
+			height: 100px;
+			display:inline-block;
+			background-color:#b0d9bc;
+			left:715px;
+			top:520px;
+			position: fixed;
+			cursor: pointer;
+			border: 4px solid #809e89;
+			text-align: center;
+			line-height: 100px;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		#box2:hover{
+			scale: 1.05;
+		}
+
+		#box3{
+			width: 500px;
+			height: 100px;
+			display:inline-block;
+			background-color:#a4d4de;
+			left:185px;
+			top:520px;
+			position: fixed;
+			cursor: pointer;
+			border: 4px solid #7da1a8;
+			text-align: center;
+			line-height: 100px;
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		#box3:hover{
+			scale: 1.05;
+		}
+
+		#instructions {
+			text-align: center;
+			font-size: 18px;
+			color: #735078;
+			margin: 10px;
+		}
+		#gameOver {
+			text-align: center;
+			font-size: 24px;
+			color: #735078;
+			margin: 20px;
+			display: none;
+		}
+		#score{
+			text-align: center;
+			font-size: 25px;
+			color: #735078;
+			margin: 20px;
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="background">
+		<h3> 
+			<p style="font-size: 100px; color: #735078; text-align: center;"> sanaa's trivia game ‼️</p> 
+		</h3>
+		<div id="instructions">Click anywhere to start the game!</div>
+		<div id="question"></div>
+		<div id="gameOver"> GAME OVER! 👾 </div>
+		<div id="score"> Your score was: </div>
+
+		<div class="boxes" id="box0"></div>
+		<div class="boxes" id="box1"></div>
+		<div class="boxes" id="box2"></div>
+		<div class="boxes" id="box3"></div>
+		
+		<script type="text/javascript">
+			let questionIndex = 0;
+			let usedQuestions = [];
+			let gameStarted = false;
+			let gameComplete = false;
+			
+			// QUESTIONS AND ANSWERS
+			let qandA = [
+				{
+					question: "When is Sanaa's Birthday? 🎂",
+					answers: ["03/14", "02/22", "01/28", "08/05"]
+				},
+				{
+					question: "How old is Sanaa? 👧",
+					answers: ["14", "13", "15", "16"]
+				},
+				{
+					question: "What is Sanaa's Favorite Color? 🎨",
+					answers: ["Pink", "Purple", "Red", "Blue"]
+				},
+				{
+					question: "What Part of the City does Sanaa Live? 🏙️",
+					answers: ["Lower East Side", "Harlem", "Upper West Side", "Upper East Side"]
+				},
+				{
+					question: "What is Sanaa's Favorite Song? 🎵",
+					answers: ["Always, Daniel Ceasar", "Missed Calls, Mac Miller", "Shake it Off, Taylor Swift", "To be Hunted, Childish Gambino"]
+				},
+				{
+					question: "What is Sanaa's Favorite Food? 🍲",
+					answers: ["Mac & Cheese", "Pasta", "Steak", "Mozzarella Sticks"]
+				},
+				{
+					question: "When Does Sanaa Wake up For School? ⏰",
+					answers: ["7:30", "7:00", "6:30", "6:25"]
+				},
+				{
+					question: "Who is Sanaa's Favorite Teacher? 👩‍🏫",
+					answers: ["Molly", "Sean", "Mr. Atlas", "Ms. Garbasz"]
+				},
+				{
+					question: "What is Sanaa's Favorite Class? ✍️",
+					answers: ["English", "Math", "Architecture", "French"]
+				},
+				{
+					question: "What house is Sanaa in? 🏠",
+					answers: ["Mattis/Kim", "Lechich/Kerman", "Pearson/Lastarria", "Neiers/Fisher"]
+				}
+			];
+			//GO THROUGH THE ARRAY TO GET QUESTIONS AND MAKE THEM ONLY REPEAT ONCE
+
+			function getNextQuestion() {
+
+				if (usedQuestions.length >= qandA.length) {
+					gameComplete = true;
+					document.getElementById("question").style.display = "none";
+					document.getElementById("gameOver").style.display = "block";
+					document.getElementById("instructions").style.display = "none";
+					// Hide all answer boxes
+					for (let i = 0; i < 4; i++) {
+						document.getElementById("box" + i).style.display = "none";
+					}
+					return;
+				}
+				
+				let randomIndex;
+				do {
+					randomIndex = Math.floor(Math.random() * qandA.length);
+				} while (usedQuestions.includes(randomIndex));
+				
+				usedQuestions.push(randomIndex);
+				
+				return randomIndex;
+			}
+			
+			function displayQuestion(index) {
+				let currentQ = qandA[index];
+				document.getElementById("question").innerText = currentQ.question;
+				document.getElementById("instructions").style.display = "none";
+				
+				for (let i = 0; i < 4; i++) {
+					document.getElementById("box" + i).innerText = currentQ.answers[i];
+					document.getElementById("box" + i).style.display = "inline-block";
+				}
+			}
+			if {
+				
+			}
+			
+			function resetGame() {
+				usedQuestions = [];
+				gameComplete = false;
+				gameStarted = false;
+				document.getElementById("question").style.display = "block";
+				document.getElementById("question").innerText = "";
+				document.getElementById("gameOver").style.display = "none";
+				document.getElementById("instructions").style.display = "block";
+				document.getElementById("instructions").innerText = "Click anywhere to start the game!";
+			}
+			
+			document.addEventListener("click", function(event) {
+				if (gameComplete) {
+					resetGame();
+					return;
+				}
+				
+				if (!gameStarted) {
+					gameStarted = true;
+				}
+				
+				let nextQuestionIndex = getNextQuestion();
+				if (nextQuestionIndex !== undefined) {
+					displayQuestion(nextQuestionIndex);
+				}
+			});
+		</script>
+	</div>
+</body>
+</html>
