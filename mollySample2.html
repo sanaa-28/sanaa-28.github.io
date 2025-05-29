@@ -30,12 +30,12 @@
 			left:185px;
 			top:400px;
 			position: fixed;
-			cursor: pointer;
 			border: 4px solid #b3708b;
 			text-align: center;
 			line-height: 100px;
 			font-size: 18px;
 			font-weight: bold;
+			cursor: pointer;
 		}
 
 		#box0:hover{
@@ -50,12 +50,12 @@
 			left:715px;
 			top:400px;
 			position: fixed;
-			cursor: pointer;
 			border: 4px solid #d1c279;
 			text-align: center;
 			line-height: 100px;
 			font-size: 18px;
 			font-weight: bold;
+			cursor: pointer;
 		}
 
 		#box1:hover{
@@ -70,12 +70,12 @@
 			left:715px;
 			top:520px;
 			position: fixed;
-			cursor: pointer;
 			border: 4px solid #809e89;
 			text-align: center;
 			line-height: 100px;
 			font-size: 18px;
 			font-weight: bold;
+			cursor: pointer;
 		}
 
 		#box2:hover{
@@ -90,12 +90,12 @@
 			left:185px;
 			top:520px;
 			position: fixed;
-			cursor: pointer;
 			border: 4px solid #7da1a8;
 			text-align: center;
 			line-height: 100px;
 			font-size: 18px;
 			font-weight: bold;
+			cursor: pointer;
 		}
 
 		#box3:hover{
@@ -133,6 +133,7 @@
 		<div id="instructions">Click anywhere to start the game!</div>
 		<div id="question"></div>
 		<div id="gameOver"> GAME OVER! 👾 </div>
+		<div id="score"></div>
 
 		<div class="boxes" id="box0"></div>
 		<div class="boxes" id="box1"></div>
@@ -144,12 +145,28 @@
 			let usedQuestions = [];
 			let gameStarted = false;
 			let gameComplete = false;
+			let score = 0;
+			let currentQuestionIndex = -1;
+			
+			// CORRECT ANSWERS
+			let correctAnswers = [
+				"1/28",           
+				"15",          
+				"Purple",        
+				"Harlem",        
+				"Always, Daniel Ceasar", 
+				"Mozzarella Sticks",     
+				"6:30",        
+				"Molly",        
+				"Architecture",  
+				"Lechich/Kerman" 
+			];
 			
 			// QUESTIONS AND ANSWERS
 			let qandA = [
 				{
 					question: "When is Sanaa's Birthday? 🎂",
-					answers: ["03/14", "02/22", "01/28", "08/05"]
+					answers: ["03/14", "02/22", "1/28", "08/05"]
 				},
 				{
 					question: "How old is Sanaa? 👧",
@@ -188,15 +205,16 @@
 					answers: ["Mattis/Kim", "Lechich/Kerman", "Pearson/Lastarria", "Neiers/Fisher"]
 				}
 			];
-			//GO THROUGH THE ARRAY TO GET QUESTIONS AND MAKE THEM ONLY REPEAT ONCE
 
 			function getNextQuestion() {
-
 				if (usedQuestions.length >= qandA.length) {
 					gameComplete = true;
 					document.getElementById("question").style.display = "none";
 					document.getElementById("gameOver").style.display = "block";
-					document.getElementById("instructions").style.display = "none";
+					document.getElementById("score").style.display = "block";
+					document.getElementById("score").innerText = `Your Score: ${score}/${qandA.length} 🎉`;
+					document.getElementById("instructions").style.display = "block";
+					document.getElementById("instructions").innerText = "Click anywhere to play again!";
 					// Hide all answer boxes
 					for (let i = 0; i < 4; i++) {
 						document.getElementById("box" + i).style.display = "none";
@@ -210,6 +228,7 @@
 				} while (usedQuestions.includes(randomIndex));
 				
 				usedQuestions.push(randomIndex);
+				currentQuestionIndex = randomIndex;
 				
 				return randomIndex;
 			}
@@ -225,18 +244,54 @@
 				}
 			}
 			
+			function checkAnswer(selectedAnswer) {
+			
+				let normalizedSelected = selectedAnswer.toLowerCase().trim();
+				let normalizedCorrect = correctAnswers[currentQuestionIndex].toLowerCase().trim();
+				
+				if (normalizedSelected === normalizedCorrect) {
+					score++;
+				}
+				
+		
+				setTimeout(() => {
+					let nextQuestionIndex = getNextQuestion();
+					if (nextQuestionIndex !== undefined) {
+						displayQuestion(nextQuestionIndex);
+					}
+				}, 500);
+			}
+			
 			function resetGame() {
 				usedQuestions = [];
 				gameComplete = false;
 				gameStarted = false;
+				score = 0;
+				currentQuestionIndex = -1;
 				document.getElementById("question").style.display = "block";
 				document.getElementById("question").innerText = "";
 				document.getElementById("gameOver").style.display = "none";
+				document.getElementById("score").style.display = "none";
 				document.getElementById("instructions").style.display = "block";
 				document.getElementById("instructions").innerText = "Click anywhere to start the game!";
 			}
 			
+	
+			for (let i = 0; i < 4; i++) {
+				document.getElementById("box" + i).addEventListener("click", function(event) {
+					event.stopPropagation();
+					if (gameStarted && !gameComplete) {
+						checkAnswer(this.innerText);
+					}
+				});
+			}
+			
 			document.addEventListener("click", function(event) {
+			
+				if (event.target.classList.contains('boxes') || event.target.id.startsWith('box')) {
+					return;
+				}
+				
 				if (gameComplete) {
 					resetGame();
 					return;
@@ -244,11 +299,10 @@
 				
 				if (!gameStarted) {
 					gameStarted = true;
-				}
-				
-				let nextQuestionIndex = getNextQuestion();
-				if (nextQuestionIndex !== undefined) {
-					displayQuestion(nextQuestionIndex);
+					let nextQuestionIndex = getNextQuestion();
+					if (nextQuestionIndex !== undefined) {
+						displayQuestion(nextQuestionIndex);
+					}
 				}
 			});
 		</script>
